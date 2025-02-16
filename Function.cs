@@ -1,5 +1,6 @@
 using Amazon.Lambda.Core;
 using Amazon.Lambda.SQSEvents;
+using System.Text.Json;
 
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
@@ -29,6 +30,7 @@ public class Function
     /// <returns></returns>
     public async Task FunctionHandler(SQSEvent evnt, ILambdaContext context)
     {
+        context.Logger.LogInformation("The SQS Event" + JsonSerializer.Serialize(evnt));
         foreach(var message in evnt.Records)
         {
             await ProcessMessageAsync(message, context);
