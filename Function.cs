@@ -41,7 +41,7 @@ public class Function
     {
         context.Logger.LogInformation($"Processed message {message.Body}");
 
-        // TODO: Do interesting work based on the new message
+        // TODO: Process the received message 
         await Task.CompletedTask;
     }
 }
