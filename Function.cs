@@ -1,5 +1,7 @@
 using Amazon.Lambda.Core;
 using Amazon.Lambda.SQSEvents;
+using Amazon.S3;
+using Amazon.S3.Model;
 using System.Text.Json;
 
 
@@ -15,10 +17,21 @@ public class Function
     /// the AWS credentials will come from the IAM role associated with the function and the AWS region will be set to the
     /// region the Lambda function is executed in.
     /// </summary>
+
+    private readonly IAmazonS3 _s3Client;
+    private const string BUCKET_NAME = "eks-processing";
+
     public Function()
     {
-
+        _s3Client = new AmazonS3Client();
     }
+
+
+    public Function(IAmazonS3 s3Client)
+    {
+        _s3Client = s3Client;
+    }
+
 
 
     /// <summary>
@@ -39,9 +52,18 @@ public class Function
 
     private async Task ProcessMessageAsync(SQSEvent.SQSMessage message, ILambdaContext context)
     {
-        context.Logger.LogInformation($"Processed message {message.Body}");
 
-        // TODO: Process the received message 
+        var objectRequest = new PutObjectRequest
+        {
+            BucketName = BUCKET_NAME,
+            Key = $"processed-eks-{message.MessageId}.json",
+            ContentBody = message.Body,
+            ContentType = "application/json",
+        };
+
+        var response = await _s3Client.PutObjectAsync(objectRequest);
+
+        context.Logger.LogInformation($"Processed message {message.Body}");
         await Task.CompletedTask;
     }
 }
