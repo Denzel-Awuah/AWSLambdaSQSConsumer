@@ -52,7 +52,7 @@ public class Function
 
     private async Task ProcessMessageAsync(SQSEvent.SQSMessage message, ILambdaContext context)
     {
-
+        context.Logger.LogInformation("Beginning to process message with MessageId: " + message.MessageId);
         var objectRequest = new PutObjectRequest
         {
             BucketName = BUCKET_NAME,
@@ -63,7 +63,7 @@ public class Function
 
         var response = await _s3Client.PutObjectAsync(objectRequest);
 
-        context.Logger.LogInformation($"Processed message {message.Body}");
+        context.Logger.LogInformation($"Processed message: {message.Body}");
         await Task.CompletedTask;
     }
 }
