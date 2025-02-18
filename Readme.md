@@ -1,51 +1,13 @@
-# AWS Lambda Simple SQS Function Project
+## .NET 8 Web API AWS System with EKS, EC2, SQS, Lambda and S3
+A .NET 8 AWS Lambda function that recieves events from an AWS SQS queue. The lambda then processes the messages received from the queue and stores updates into an S3 bucket.
 
-This starter project consists of:
-* Function.cs - class file containing a class with a single function handler method
-* aws-lambda-tools-defaults.json - default argument settings for use with Visual Studio and command line deployment tools for AWS
+## Deployment 
+This lambda function is a service within a larger system deployed on AWS. See full deployment strategy and details below.
 
-You may also have a test project depending on the options selected.
+A .NET Web API application was containerized using Docker, then the image is pushed to a repository in Elastic Container Registry. The image was then pulled from ECR and deployed to Amazon Elastic Kubernetes Services (EKS).
+The image pull from ECR was then deployed to a managed nodegroup within the EKS cluster using AWS EC2 Instances. A Load Balancer was also deployed to balance the traffic coming into the cluster.
 
-The generated function handler responds to events on an Amazon SQS queue.
 
-After deploying your function you must configure an Amazon SQS queue as an event source to trigger your Lambda function.
+## Deployment Strategy
+![Application](/AWS-EKS-DotNet-System-Infrastructure.jpg)
 
-## Here are some steps to follow from Visual Studio:
-
-To deploy your function to AWS Lambda, right click the project in Solution Explorer and select *Publish to AWS Lambda*.
-
-To view your deployed function open its Function View window by double-clicking the function name shown beneath the AWS Lambda node in the AWS Explorer tree.
-
-To perform testing against your deployed function use the Test Invoke tab in the opened Function View window.
-
-To configure event sources for your deployed function use the Event Sources tab in the opened Function View window.
-
-To update the runtime configuration of your deployed function use the Configuration tab in the opened Function View window.
-
-To view execution logs of invocations of your function use the Logs tab in the opened Function View window.
-
-## Here are some steps to follow to get started from the command line:
-
-Once you have edited your template and code you can deploy your application using the [Amazon.Lambda.Tools Global Tool](https://github.com/aws/aws-extensions-for-dotnet-cli#aws-lambda-amazonlambdatools) from the command line.
-
-Install Amazon.Lambda.Tools Global Tools if not already installed.
-```
-    dotnet tool install -g Amazon.Lambda.Tools
-```
-
-If already installed check if new version is available.
-```
-    dotnet tool update -g Amazon.Lambda.Tools
-```
-
-Execute unit tests
-```
-    cd "AWSLambdaSQSConsumer/test/AWSLambdaSQSConsumer.Tests"
-    dotnet test
-```
-
-Deploy function to AWS Lambda
-```
-    cd "AWSLambdaSQSConsumer/src/AWSLambdaSQSConsumer"
-    dotnet lambda deploy-function
-```
