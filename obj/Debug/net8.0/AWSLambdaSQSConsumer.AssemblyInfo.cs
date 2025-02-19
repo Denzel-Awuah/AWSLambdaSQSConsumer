@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AWSLambdaSQSConsumer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4aabd2e93fa324de648635c13b9849a72b19c3ea")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6de05db40e3b144b7030caee47c77507d331a613")]
 [assembly: System.Reflection.AssemblyProductAttribute("AWSLambdaSQSConsumer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AWSLambdaSQSConsumer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
